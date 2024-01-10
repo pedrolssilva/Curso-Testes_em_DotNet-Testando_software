@@ -13,7 +13,7 @@ namespace Alura.Estacionamento.Testes
         {
             SaidaConsoleTeste = _saidaConsoleTeste;
             SaidaConsoleTeste.WriteLine("Construtor invocado.");
-            veiculo = new Veiculo();      
+            veiculo = new Veiculo();
         }
 
         [Fact]
@@ -52,7 +52,6 @@ namespace Alura.Estacionamento.Testes
         public void FichaDeInformacaoDoVeiculo()
         {
             // Arrange
-            //var veiculo = new Veiculo();
             veiculo.Proprietario = "Carlos Silva";
             veiculo.Tipo = TipoVeiculo.Automovel;
             veiculo.Cor = "Verde";
@@ -64,6 +63,35 @@ namespace Alura.Estacionamento.Testes
 
             // Assert
             Assert.Contains("Ficha do Veículo:", dados);
+        }
+
+        [Fact]
+        public void TestaNomeProprietarioVeiculoComMenosDeTresCaracteres()
+        {
+            // Arrange
+            string nomeProprietario = "Ab";
+
+            // Assert
+            Assert.Throws<FormatException>(
+                // Act
+                () => new Veiculo(nomeProprietario)
+            );
+        }
+
+
+        [Fact]
+        public void TestaMensagemDeExcecaoDoQuartoCaractereDaPlaca()
+        {
+            // Arrange
+            string placa = "ASDF8888";
+
+            // Act
+            var mensagem = Assert.Throws<FormatException>(
+                () => new Veiculo().Placa = placa
+            );
+
+            // Assert
+            Assert.Equal("O 4° caractere deve ser um hífen", mensagem.Message);
         }
 
         public void Dispose()
