@@ -61,7 +61,7 @@ namespace Alura.Estacionamento.Testes
             // Act
             string dados = veiculo.ToString();
 
-            // Assert
+            // Assert 
             Assert.Contains("Ficha do Veículo:", dados);
         }
 
